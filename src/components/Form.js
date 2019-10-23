@@ -8,7 +8,7 @@ import Services from './form/Services';
 
 class Form extends Component {
     state = {
-        type: 0, //0 - ОМС; 1 - ДМС
+        type: 1, //0 - ОМС; 1 - ДМС
         policyNumber: null,
         IC: ''
     }
@@ -22,9 +22,8 @@ class Form extends Component {
             <div>
                 <h3>Проверка услуг медицинского страхования</h3>
                 <form action="">
-                    <InsType/>
-                    <input type="number" 
-                            name="policyNumber"
+                    <InsType type = {this.state.type}/>
+                    <input name="policyNumber"
                             placeholder="Введите номер полиса"
                             value={this.state.policyNumber}
                     />
