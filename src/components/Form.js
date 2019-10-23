@@ -9,9 +9,16 @@ import Services from './form/Services';
 class Form extends Component {
     state = {
         type: 1, //0 - ОМС; 1 - ДМС
-        policyNumber: null,
+        policyNumber: '',
         IC: ''
     }
+
+    handleUserInput = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
     clickCheck(event) {
         event.preventDefault();
         // this.props.dispatch(checkData(this.state.type, this.state.policyNumber, this.state.IC));
@@ -22,14 +29,27 @@ class Form extends Component {
             <div>
                 <h3>Проверка услуг медицинского страхования</h3>
                 <form action="">
+
                     <InsType type = {this.state.type}/>
-                    <input name="policyNumber"
-                            placeholder="Введите номер полиса"
-                            value={this.state.policyNumber}
-                    />
-                    <InsCompany/>
+
+                    <div>
+                        <input name="policyNumber"
+                                placeholder="Введите номер полиса"
+                                value={this.state.policyNumber}
+                                onChange={this.handleUserInput} 
+                        />
+                        <div>Дата окончания действия полиса</div>
+                    </div>
+                    
+                    <div>
+                        <InsCompany/>
+                        <div>Телефон страховой</div>
+                    </div>
+                    
                     <Services/>
+
                     <button onClick={(e)=>{this.clickCheck(e);}}>Проверить</button>
+
                 </form>
 
             </div>
