@@ -10,13 +10,28 @@ class Form extends Component {
     state = {
         type: 1, //0 - ОМС; 1 - ДМС
         policyNumber: '',
-        IC: ''
+        IC: '',
+        companiesList: [],
+        companiesDropDown: false
     }
-
+    
+    //номер полиса
     handleUserInput = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         })
+    }
+
+    //страховые компании
+    toggleCompanies = () => {
+        this.setState({
+			companiesDropDown: !this.state.companiesDropDown
+        });
+    }
+    chooseCompany = (data) => {
+        this.setState({
+			IC: data
+        });
     }
 
     clickCheck(event) {
@@ -41,10 +56,11 @@ class Form extends Component {
                         <div>Дата окончания действия полиса</div>
                     </div>
                     
-                    <div>
-                        <InsCompany/>
-                        <div>Телефон страховой</div>
-                    </div>
+                    <InsCompany company = {this.state.IC}
+                                companiesList = {this.state.companiesList}
+                                companiesDropDown = {this.state.companiesDropDown}
+                                toggleCompanies = {this.toggleCompanies} />
+
                     
                     <Services/>
 
