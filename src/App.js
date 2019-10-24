@@ -1,14 +1,20 @@
-import React from 'react';
-
-import Layout from './Layout';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-        <Layout/>
-    </div>
-  );
+import { Provider } from 'react-redux';
+import store from './store/store';
+
+import Layout from './Layout';
+
+class App extends Component {
+  render() {
+    return (
+      // <div className="App"/>
+      <Provider store={store}>
+          <Layout />
+      </Provider>
+    );
+  }
 }
 
 export default App;
