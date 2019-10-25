@@ -2,7 +2,7 @@ import {
     GET_COMPANIES
 } from '../constants';
   
-import instance from '../axios-docs';
+import instance from '../axios';
   
 export function getCompanies() {
     return {

@@ -4,15 +4,37 @@ import InsType from './form/InsType';
 import InsCompany from './form/InsCompany';
 import Services from './form/Services';
 
+import {getPolicy}  from '../store/actions/PolicyActions';
+import {connect} from 'react-redux';
+
 // import styles from './Form.module.css';
 
 class Form extends Component {
     state = {
-        type: 1, //0 - ОМС; 1 - ДМС
+        type: 0, //0 - ОМС; 1 - ДМС
         policyNumber: '',
         IC: '',
+        IP: undefined,
         companiesList: [],
         companiesDropDown: false
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.policy !== prevProps.policy) { 
+            if(this.props.policy !== undefined){//если полис найден в базе
+                this.setState({
+                    IP: this.props.policy,
+                    type: this.props.policy.type,
+                    IC: this.props.policy.IC
+                })
+            }else{ //полис не найден
+                this.setState({
+                    type: 0,
+                    IC: '',
+                    IP: undefined
+                })
+            }
+        }
     }
     
     //номер полиса
@@ -20,6 +42,7 @@ class Form extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
+        this.props.dispatch(getPolicy(e.target.value));
     }
 
     //страховые компании
@@ -73,4 +96,10 @@ class Form extends Component {
     }
 }
 
-export default Form;
+function mapStateToProps(store) {
+    return {
+        policy: store.policy.policy
+    }
+}
+
+export default connect(mapStateToProps)(Form);
