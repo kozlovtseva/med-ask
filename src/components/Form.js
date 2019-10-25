@@ -76,7 +76,9 @@ class Form extends Component {
                                 value={this.state.policyNumber}
                                 onChange={this.handleUserInput} 
                         />
-                        <div>Дата окончания действия полиса</div>
+                        <div>
+                            {(this.state.IP !== undefined) ? this.state.IP.expireDate : ''}
+                        </div>
                     </div>
                     
                     <InsCompany company = {this.state.IC}

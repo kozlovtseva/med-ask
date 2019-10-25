@@ -4,7 +4,7 @@ import Company from './Company';
 import styles from './InsCompany.module.css';
 
 const InsCompany = (props) => {
-
+    console.log(props);
     let item = (props.company === undefined) ? 'Выберите страховую компанию' : 
         <div>
             <img src={require(`../../images/${props.company.img}.png`)} alt="company_logo"/>
@@ -25,7 +25,9 @@ const InsCompany = (props) => {
             <div className={props.companiesDropDown ? styles.Active : styles.Passive}>
                 { list }
             </div>
-            <div>Телефон страховой</div>
+            <div>
+                {(props.company !== undefined) ? props.company.tel : ''}
+            </div>
         </>
     );
 };
