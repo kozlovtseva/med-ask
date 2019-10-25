@@ -4,7 +4,6 @@ import Company from './Company';
 import styles from './InsCompany.module.css';
 
 const InsCompany = (props) => {
-    console.log(props);
     let item = (props.company === undefined) ? 'Выберите страховую компанию' : 
         <div>
             <img src={require(`../../images/${props.company.img}.png`)} alt="company_logo"/>

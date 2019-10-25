@@ -1,11 +1,12 @@
 import React from 'react';
 
-import styles from './Company.module.css';
+// import styles from './Company.module.css';
 
 const Company = (props) => {
+    console.log(props);
     return (
         <div>
-            <img src={`${props.img}`} alt="company_icon"/>
+            <img src={require(`../../images/${props.img}.png`)} alt="company_icon"/>
             <div> {props.name} </div>
         </div>
     );

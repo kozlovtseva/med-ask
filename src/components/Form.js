@@ -5,6 +5,7 @@ import InsCompany from './form/InsCompany';
 import Services from './form/Services';
 
 import {getPolicy}  from '../store/actions/PolicyActions';
+import {getCompanies}  from '../store/actions/CompaniesActions';
 import {connect} from 'react-redux';
 
 // import styles from './Form.module.css';
@@ -15,9 +16,13 @@ class Form extends Component {
         policyNumber: '',
         IC: undefined,
         IP: undefined,
-        companiesList: [],
+        // companiesList: [],
         companiesDropDown: false
     }
+
+    componentDidMount(){
+        this.props.dispatch(getCompanies());
+	}
 
     componentDidUpdate(prevProps) {
         if (this.props.policy !== prevProps.policy) { 
@@ -82,7 +87,7 @@ class Form extends Component {
                     </div>
                     
                     <InsCompany company = {this.state.IC}
-                                companiesList = {this.state.companiesList}
+                                companiesList = {this.props.companies}
                                 companiesDropDown = {this.state.companiesDropDown}
                                 toggleCompanies = {this.toggleCompanies} />
 
@@ -100,7 +105,8 @@ class Form extends Component {
 
 function mapStateToProps(store) {
     return {
-        policy: store.policy.policy
+        policy: store.policy.policy,
+        companies: store.companies.companies
     }
 }
 
