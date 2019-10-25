@@ -13,7 +13,7 @@ class Form extends Component {
     state = {
         type: 0, //0 - ОМС; 1 - ДМС
         policyNumber: '',
-        IC: '',
+        IC: undefined,
         IP: undefined,
         companiesList: [],
         companiesDropDown: false
@@ -30,7 +30,7 @@ class Form extends Component {
             }else{ //полис не найден
                 this.setState({
                     type: 0,
-                    IC: '',
+                    IC: undefined,
                     IP: undefined
                 })
             }

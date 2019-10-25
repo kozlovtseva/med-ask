@@ -5,7 +5,11 @@ import styles from './InsCompany.module.css';
 
 const InsCompany = (props) => {
 
-    let item = (props.company === '') ? 'Выберите страховую компанию' : <div>компания</div>;
+    let item = (props.company === undefined) ? 'Выберите страховую компанию' : 
+        <div>
+            <img src={require(`../../images/${props.company.img}.png`)} alt="company_logo"/>
+            {props.company.name}
+        </div>;
 
     let list = props.companiesList.map((company, index) => {
         return <Company key={index}
