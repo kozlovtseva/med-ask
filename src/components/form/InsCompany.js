@@ -12,9 +12,10 @@ const InsCompany = (props) => {
 
     let list = props.companiesList.map((company, index) => {
         return <Company key={index}
-                    chooseCompany = {props.chooseCompany}
+                    setCompany = {props.setCompany}
                     {...company} />
     });
+    // console.log(props);
     return (
         <>
             <div className={props.companiesDropDown ? styles.Passive : styles.Active}

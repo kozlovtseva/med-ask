@@ -56,10 +56,11 @@ class Form extends Component {
 			companiesDropDown: !this.state.companiesDropDown
         });
     }
-    chooseCompany = (data) => {
+    setCompany = (data) => {
         this.setState({
 			IC: data
         });
+        this.toggleCompanies();
     }
 
     clickCheck(event) {
@@ -68,6 +69,7 @@ class Form extends Component {
     }
 
     render () {
+        console.log(this.state.IC);
         return (
             <div>
                 <h3>Проверка услуг медицинского страхования</h3>
@@ -89,9 +91,9 @@ class Form extends Component {
                     <InsCompany company = {this.state.IC}
                                 companiesList = {this.props.companies}
                                 companiesDropDown = {this.state.companiesDropDown}
-                                toggleCompanies = {this.toggleCompanies} />
+                                toggleCompanies = {this.toggleCompanies} 
+                                setCompany = {this.setCompany}/>
 
-                    
                     <Services/>
 
                     <button onClick={(e)=>{this.clickCheck(e);}}>Проверить</button>
