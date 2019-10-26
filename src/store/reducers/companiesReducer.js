@@ -2,7 +2,9 @@ import * as Constants from '../constants';
 
 const initialState = {
     companies: [],
+    services: [],
     is_loading_companies: false,
+    is_loading_services: false,
 };
 
 export function companiesReducer(state = initialState, action) {
@@ -32,6 +34,35 @@ export function companiesReducer(state = initialState, action) {
             state = {
                 error_message: action.payload.message,
                 is_loading_companies: false,
+            };
+            break;
+        }
+
+        case Constants.GET_SERVICES: { //пока нет связи с беком
+            state = {
+                ...state,
+                services: action.payload,
+                is_loading_policy: false,
+            };
+            break;
+        }
+
+        case Constants.GET_SERVICES_PENDING: {
+            state = { ...state, is_loading_services: true };
+            break;
+        }
+        case Constants.GET_SERVICES_FULFILLED: {
+            state = {
+                ...state,
+                services: action.payload.data,
+                is_loading_services: false,
+            };
+            break;
+        }
+        case Constants.GET_SERVICES_REJECTED: {
+            state = {
+                error_message: action.payload.message,
+                is_loading_services: false,
             };
             break;
         }

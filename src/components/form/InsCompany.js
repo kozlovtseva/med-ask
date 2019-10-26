@@ -15,7 +15,6 @@ const InsCompany = (props) => {
                     setCompany = {props.setCompany}
                     {...company} />
     });
-    // console.log(props);
     return (
         <>
             <div className={props.companiesDropDown ? styles.Passive : styles.Active}

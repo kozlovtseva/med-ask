@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 import InsType from './form/InsType';
 import InsCompany from './form/InsCompany';
 import Services from './form/Services';
+import SearchResults from './form/SearchResults'
 
 import {getPolicy}  from '../store/actions/PolicyActions';
 import {getCompanies}  from '../store/actions/CompaniesActions';
+import {getServices}  from '../store/actions/CompaniesActions';
 import {connect} from 'react-redux';
 
 // import styles from './Form.module.css';
@@ -16,12 +18,14 @@ class Form extends Component {
         policyNumber: '',
         IC: undefined,
         IP: undefined,
-        // companiesList: [],
-        companiesDropDown: false
+        companiesDropDown: false,
+        searchList: undefined,
+        chosenServices: []
     }
 
     componentDidMount(){
         this.props.dispatch(getCompanies());
+        this.props.dispatch(getServices());
 	}
 
     componentDidUpdate(prevProps) {
@@ -62,6 +66,28 @@ class Form extends Component {
         });
         this.toggleCompanies();
     }
+    
+    handleSearch = (e) => {
+        let result = [];
+        if(e.target.value !== '') {
+            this.props.services.forEach(function(item) {
+                if(item.toLowerCase().indexOf(e.target.value) !== -1) {
+                    if(result.length < 10) {
+                        result.push(item);
+                    }
+                }
+            });
+        }
+        this.setState({searchList: result});
+    }
+
+    addService = (service) => {
+        let result = this.state.chosenServices;
+        result.push(service);
+        this.setState({
+			chosenServices: result
+        });
+    }
 
     clickCheck(event) {
         event.preventDefault();
@@ -69,7 +95,6 @@ class Form extends Component {
     }
 
     render () {
-        console.log(this.state.IC);
         return (
             <div>
                 <h3>Проверка услуг медицинского страхования</h3>
@@ -93,8 +118,16 @@ class Form extends Component {
                                 companiesDropDown = {this.state.companiesDropDown}
                                 toggleCompanies = {this.toggleCompanies} 
                                 setCompany = {this.setCompany}/>
+                    <div>
+                        <input type="text" 
+                                onChange={this.handleSearch}
+                                placeholder='Введите запрашиваемую услугу для пациента'/>
+                        {(this.state.searchList) ? 
+                                <SearchResults list={this.state.searchList} addService={this.addService}/> 
+                                : null  }
+                    </div>
 
-                    <Services/>
+                    <Services list={this.state.chosenServices}/>
 
                     <button onClick={(e)=>{this.clickCheck(e);}}>Проверить</button>
 
@@ -108,7 +141,8 @@ class Form extends Component {
 function mapStateToProps(store) {
     return {
         policy: store.policy.policy,
-        companies: store.companies.companies
+        companies: store.companies.companies,
+        services: store.companies.services,
     }
 }
 
