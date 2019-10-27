@@ -119,8 +119,9 @@ class Form extends Component {
         if(this.state.IP === undefined){
             this.props.alertToggle();
         };
-        // if(this.state.)
-        // this.props.dispatch(checkData(this.state.type, this.state.policyNumber, this.state.IC));
+        if(this.state.chosenServices.length >= 0){
+            // this.props.dispatch(checkData(this.state.type, this.state.policyNumber, this.state.IC));
+        }
     }
 
     render () {
@@ -168,7 +169,12 @@ class Form extends Component {
                     <Services list={this.state.chosenServices} delService={this.delService}/>
                     </div>
                     <div className={styles.ButtonBlock}>
-                        <button type='button' className={styles.Button} onClick={this.clickCheck}>Проверить</button>
+                        <button type='button' 
+                                className={(this.state.IP !== undefined) ? styles.Button 
+                                            : styles.Button + ' ' + styles.ButtonPassive} 
+                                onClick={this.clickCheck}>
+                            Проверить
+                        </button>
                     </div>
                     
 

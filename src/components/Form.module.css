@@ -83,3 +83,8 @@
     font-size: 18px;
     padding: 10px 40px;
 }
+.ButtonPassive{
+    background-color: #fff;
+    border-color: #ED462F;
+    color: #ED462F;
+}
