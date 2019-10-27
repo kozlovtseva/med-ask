@@ -6,7 +6,7 @@ import Services from './form/Services';
 import SearchResults from './form/SearchResults';
 
 import {getPolicy}  from '../store/actions/PolicyActions';
-import {getCompanies, getServices, checkData}  from '../store/actions/CompaniesActions';
+import {getCompanies, getServices, checkData, delData}  from '../store/actions/CompaniesActions';
 import {connect} from 'react-redux';
 
 import styles from './Form.module.css';
@@ -129,15 +129,19 @@ class Form extends Component {
                 checkBtn: false
             });
         }else{
-            this.resetState();
+            this.reset();
         }
     }
 
-    resetState = () => {
+    reset = () => {
         this.setState(this.initialState);
         this.setState({
+            type: 0,
             chosenServices: []
         });
+        this.props.dispatch(delData());
+        this.props.dispatch(getCompanies());
+        this.props.dispatch(getServices());
     }
 
     render () {
@@ -150,7 +154,7 @@ class Form extends Component {
             </button>
             : <button type='button'
                     className={styles.resetButton}
-                    onClick={this.resetState}>
+                    onClick={this.reset}>
                 Новый запрос
             </button>;
 
@@ -170,7 +174,9 @@ class Form extends Component {
                                     onChange={this.handleUserInput} required
                             />
                             <div className={styles.Date}>
-                                {(this.state.IP !== undefined) ? 'Дата окончания ' + this.state.IP.expireDate : ''}
+                                {(this.state.IP  && this.state.IP.expireDate ) ? 
+                                    'Дата окончания ' + this.state.IP.expireDate 
+                                    : ''}
                             </div>
                         </div>
                         <InsCompany company = {this.state.IC}

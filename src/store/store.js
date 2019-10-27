@@ -8,14 +8,26 @@ import thunk from 'redux-thunk';
 import { companiesReducer } from './reducers/companiesReducer';
 import { policyReducer } from './reducers/policyReducer';
 
-
-const reducers = combineReducers({
+const appReducer = combineReducers({
     companies: companiesReducer,
     policy: policyReducer
-});
+})
+  
+  const rootReducer = (state, action) => {
+    if (action.type === 'DEL_DATA') {
+      state = undefined
+    }
+  
+    return appReducer(state, action)
+  }
+
+// const reducers = combineReducers({
+//     companies: companiesReducer,
+//     policy: policyReducer
+// });
 
 const middleware = applyMiddleware(promise, logger, thunk);
 
-const store = createStore(reducers, middleware);
+const store = createStore(rootReducer, middleware);
 
 export default store;
