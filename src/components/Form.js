@@ -20,6 +20,7 @@ class Form extends Component {
         IP: undefined,
         companiesDropDown: false,
         searchList: undefined,
+        service: undefined,
         chosenServices: []
     }
 
@@ -81,8 +82,12 @@ class Form extends Component {
         }else{
             result = undefined;
         }
-        this.setState({searchList: result});
+        this.setState({
+            searchList: result,
+            service: e.target.value
+        });
     }
+    
 
     addService = (service) => {
         let result = this.state.chosenServices;
@@ -91,6 +96,12 @@ class Form extends Component {
             chosenServices: result,
             searchList: undefined
         });
+    }
+
+    handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            this.addService(this.state.service);
+        }
     }
 
     clickCheck = () => {
@@ -131,6 +142,7 @@ class Form extends Component {
                         <input type="text" 
                                 className={(this.state.searchList) ? styles.SearchingInput : styles.Input}
                                 onChange={this.handleSearch}
+                                onKeyPress={this.handleKeyPress}
                                 placeholder='Введите запрашиваемую услугу для пациента'/>
                         {(this.state.searchList) ? 
                                 <SearchResults list={this.state.searchList} addService={this.addService}/> 
