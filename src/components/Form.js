@@ -21,7 +21,8 @@ class Form extends Component {
         searchList: undefined,
         service: undefined,
         chosenServices: [],
-        checkBtn: true
+        checkBtn: true,
+        serviceInput: ''
     }
     initialState = {...this.state}
 
@@ -71,6 +72,10 @@ class Form extends Component {
     }
     
     handleSearch = (e) => {
+        this.setState({
+            serviceInput: e.target.value
+        })
+        
         let result = [];
         if(e.target.value !== '') {
             this.props.services.forEach(function(item) {
@@ -94,7 +99,8 @@ class Form extends Component {
         result.push(service);
         this.setState({
             chosenServices: result,
-            searchList: undefined
+            searchList: undefined,
+            serviceInput: ''
         });
     }
 
@@ -116,13 +122,14 @@ class Form extends Component {
     clickCheck = () => {
         if(this.state.IP === undefined){
             this.props.alertToggle();
-        };
-        if(this.state.chosenServices.length > 0 && this.state.IP !== undefined){
+        }else if(this.state.chosenServices.length > 0){
             this.props.dispatch(checkData(this.state.IC.name, this.state.chosenServices));
             this.setState({
                 chosenServices: [],
                 checkBtn: false
             });
+        }else{
+            this.resetState();
         }
     }
 
@@ -181,6 +188,7 @@ class Form extends Component {
                                     className={(this.state.searchList) ? styles.SearchingInput : styles.Input}
                                     onChange={this.handleSearch}
                                     onKeyPress={this.handleKeyPress}
+                                    value={this.state.serviceInput}
                                     placeholder='Введите запрашиваемую услугу для пациента'/>
                             {(this.state.searchList) ? 
                                     <SearchResults list={this.state.searchList} addService={this.addService}/> 
