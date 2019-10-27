@@ -6,8 +6,7 @@ import Services from './form/Services';
 import SearchResults from './form/SearchResults';
 
 import {getPolicy}  from '../store/actions/PolicyActions';
-import {getCompanies}  from '../store/actions/CompaniesActions';
-import {getServices}  from '../store/actions/CompaniesActions';
+import {getCompanies, getServices, checkData}  from '../store/actions/CompaniesActions';
 import {connect} from 'react-redux';
 
 import styles from './Form.module.css';
@@ -21,8 +20,10 @@ class Form extends Component {
         companiesDropDown: false,
         searchList: undefined,
         service: undefined,
-        chosenServices: []
+        chosenServices: [],
+        checkBtn: true
     }
+    initialState = {...this.state}
 
     componentDidMount(){
         this.props.dispatch(getCompanies());
@@ -87,7 +88,6 @@ class Form extends Component {
             service: e.target.value
         });
     }
-    
 
     addService = (service) => {
         let result = this.state.chosenServices;
@@ -113,19 +113,40 @@ class Form extends Component {
         }
     }
 
-
-
     clickCheck = () => {
         if(this.state.IP === undefined){
             this.props.alertToggle();
         };
-        if(this.state.chosenServices.length >= 0){
-            // this.props.dispatch(checkData(this.state.type, this.state.policyNumber, this.state.IC));
+        if(this.state.chosenServices.length > 0 && this.state.IP !== undefined){
+            this.props.dispatch(checkData(this.state.IC.name, this.state.chosenServices));
+            this.setState({
+                chosenServices: [],
+                checkBtn: false
+            });
         }
     }
 
+    resetState = () => {
+        this.setState(this.initialState);
+        this.setState({
+            chosenServices: []
+        });
+    }
+
     render () {
-        
+        const button = this.state.checkBtn
+            ? <button type='button' 
+                    className={(this.state.IP !== undefined) ? styles.Button 
+                                : styles.Button + ' ' + styles.ButtonPassive} 
+                    onClick={this.clickCheck}>
+                Проверить
+            </button>
+            : <button type='button'
+                    className={styles.resetButton}
+                    onClick={this.resetState}>
+                Новый запрос
+            </button>;
+
         return (
             <div className={styles.Container}>
                 <h3 className={styles.Title}>Проверка услуг медицинского страхования</h3>
@@ -155,29 +176,25 @@ class Form extends Component {
                     <div className={styles.Subtitle}>Выберите медицинские услуги</div>
                     
                     <div className={styles.Search}>
-                    <div className={(this.state.searchList) ? styles.SearchingActive : ''}>
-                        <input type="text" 
-                                className={(this.state.searchList) ? styles.SearchingInput : styles.Input}
-                                onChange={this.handleSearch}
-                                onKeyPress={this.handleKeyPress}
-                                placeholder='Введите запрашиваемую услугу для пациента'/>
-                        {(this.state.searchList) ? 
-                                <SearchResults list={this.state.searchList} addService={this.addService}/> 
-                                : null  }
-                    </div>
+                        <div className={(this.state.searchList) ? styles.SearchingActive : ''}>
+                            <input type="text" 
+                                    className={(this.state.searchList) ? styles.SearchingInput : styles.Input}
+                                    onChange={this.handleSearch}
+                                    onKeyPress={this.handleKeyPress}
+                                    placeholder='Введите запрашиваемую услугу для пациента'/>
+                            {(this.state.searchList) ? 
+                                    <SearchResults list={this.state.searchList} addService={this.addService}/> 
+                                    : null  }
+                        </div>
 
-                    <Services list={this.state.chosenServices} delService={this.delService}/>
+                        <Services list={this.state.chosenServices} 
+                                checkedList={this.state.IP ? this.props.checked : []}
+                                delService={this.delService}/>
                     </div>
                     <div className={styles.ButtonBlock}>
-                        <button type='button' 
-                                className={(this.state.IP !== undefined) ? styles.Button 
-                                            : styles.Button + ' ' + styles.ButtonPassive} 
-                                onClick={this.clickCheck}>
-                            Проверить
-                        </button>
+                        {button}
                     </div>
                     
-
                 </form>
 
             </div>
@@ -190,6 +207,7 @@ function mapStateToProps(store) {
         policy: store.policy.policy,
         companies: store.companies.companies,
         services: store.companies.services,
+        checked: store.companies.checked
     }
 }
 

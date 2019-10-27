@@ -1,0 +1,12 @@
+.Item{
+    display: flex;
+    width: 391px;
+}
+.Img{
+    height: 20px;
+    width: 20px;
+}
+.Text{
+    font-size: 14px;
+    margin-left: 10px;
+}

@@ -42,6 +42,30 @@ const ServicesAPI = {
         },
         getServices(){
             return this.servicesList;
+        },
+        checkData(name, array){
+          const company = this.services.find(x => x.name === name);
+          // let services = [
+          // 	inServices: [],
+          //   outServices: [],
+          //   notFound: []
+          // ];
+          let services = [
+          	[],
+            [],
+            []
+          ];
+          for(let i = 0; i < array.length; i++){
+             let service = array[i];
+             if (company.inServices.indexOf(service) >= 0){
+             		services[0].push(service);
+             }else if (company.outServices.indexOf(service) >= 0){
+              services[1].push(service);
+             }else{
+              services[2].push(service);
+             }
+          }
+          return services;
         }
     }
       

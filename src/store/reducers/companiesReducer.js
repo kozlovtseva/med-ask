@@ -3,12 +3,15 @@ import * as Constants from '../constants';
 const initialState = {
     companies: [],
     services: [],
+    checked: [],
     is_loading_companies: false,
     is_loading_services: false,
+    is_loading_checked_services: false,
 };
 
 export function companiesReducer(state = initialState, action) {
     switch (action.type) {
+        //получить список страховых компаний---------------------
         case Constants.GET_COMPANIES: { //пока нет связи с беком
             state = {
                 ...state,
@@ -38,11 +41,12 @@ export function companiesReducer(state = initialState, action) {
             break;
         }
 
+        //получить список услуг---------------------
         case Constants.GET_SERVICES: { //пока нет связи с беком
             state = {
                 ...state,
                 services: action.payload,
-                is_loading_policy: false,
+                is_loading_services: false,
             };
             break;
         }
@@ -63,6 +67,36 @@ export function companiesReducer(state = initialState, action) {
             state = {
                 error_message: action.payload.message,
                 is_loading_services: false,
+            };
+            break;
+        }
+
+        //получить список проверенных услуг---------------------
+        case Constants.GET_CHECKED_SERVICES: { //пока нет связи с беком
+            state = {
+                ...state,
+                checked: action.payload,
+                is_loading_checked_services: false,
+            };
+            break;
+        }
+
+        case Constants.GET_CHECKED_SERVICES_PENDING: {
+            state = { ...state, is_loading_checked_services: true };
+            break;
+        }
+        case Constants.GET_CHECKED_SERVICES_FULFILLED: {
+            state = {
+                ...state,
+                checked: action.payload.data,
+                is_loading_checked_services: false,
+            };
+            break;
+        }
+        case Constants.GET_CHECKED_SERVICES_REJECTED: {
+            state = {
+                error_message: action.payload.message,
+                is_loading_checked_services: false,
             };
             break;
         }

@@ -88,3 +88,10 @@
     border-color: #ED462F;
     color: #ED462F;
 }
+.resetButton{
+    background: #66D1C6;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 40px;
+}
