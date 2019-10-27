@@ -3,11 +3,13 @@ import React, {Component} from "react";
 import Modal from './components/Modal';
 import Backdrop from './components/Backdrop';
 import Form from './components/Form';
+import AlertModal from './components/AlertModal';
 
 
 class Layout extends Component {
     state = {
-        modalForm: true
+        modalForm: true,
+        alertModal: false
     }
 
     // toggleModal = () => {
@@ -15,12 +17,28 @@ class Layout extends Component {
 	// 		modalForm: !this.state.modalForm
     //     });
     // }
+
+    alertToggle = () => {
+		this.setState({
+            alertModal: !this.state.alertModal,
+            modalForm: !this.state.modalForm
+        });
+    }
+
     render() {
+        const alertModal = this.state.alertModal ? (
+			<>
+				<Modal classesNames='Alert'>
+					<AlertModal alertToggle={this.alertToggle}/>
+				</Modal>
+                <Backdrop show/>
+			</>
+        ) : null;
         const modalForm = this.state.modalForm ? (
 			<>
 				<Modal>
 					<Form
-                        closeModal={this.toggleModal}
+                        alertToggle={this.alertToggle}
 					/>
 				</Modal>
                 <Backdrop show closeModal={this.toggleModal}/>
@@ -29,6 +47,7 @@ class Layout extends Component {
         return (
             <div>
                 { modalForm }
+                { alertModal }
             </div>
         )
     

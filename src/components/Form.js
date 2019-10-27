@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import InsType from './form/InsType';
 import InsCompany from './form/InsCompany';
 import Services from './form/Services';
-import SearchResults from './form/SearchResults'
+import SearchResults from './form/SearchResults';
 
 import {getPolicy}  from '../store/actions/PolicyActions';
 import {getCompanies}  from '../store/actions/CompaniesActions';
@@ -113,11 +113,18 @@ class Form extends Component {
         }
     }
 
+
+
     clickCheck = () => {
+        if(this.state.IP === undefined){
+            this.props.alertToggle();
+        };
+        // if(this.state.)
         // this.props.dispatch(checkData(this.state.type, this.state.policyNumber, this.state.IC));
     }
 
     render () {
+        
         return (
             <div className={styles.Container}>
                 <h3 className={styles.Title}>Проверка услуг медицинского страхования</h3>
@@ -161,7 +168,7 @@ class Form extends Component {
                     <Services list={this.state.chosenServices} delService={this.delService}/>
                     </div>
                     <div className={styles.ButtonBlock}>
-                        <button className={styles.Button} onClick={this.clickCheck}>Проверить</button>
+                        <button type='button' className={styles.Button} onClick={this.clickCheck}>Проверить</button>
                     </div>
                     
 

@@ -5,3 +5,10 @@
     position: fixed;
     z-index: 200;
 }
+.Alert{
+    background: #fff;
+    border: 1px solid #C4C4C4;
+    border-radius: 15px;
+    height: 213px;
+    width: 396px;
+}
