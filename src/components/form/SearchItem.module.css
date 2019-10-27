@@ -1,0 +1,12 @@
+.Item{
+    display: flex;
+    align-items: center;
+    height: 38px;
+    margin-bottom: 20px;
+    padding-left: 23px;
+}
+.Item:hover{
+    background-color: #66D1C6;
+    color: white;
+    cursor: default;
+}

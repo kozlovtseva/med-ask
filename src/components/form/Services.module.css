@@ -1,0 +1,10 @@
+.List{
+    display: flex;
+    flex-wrap: wrap;
+    height: 200px;
+    list-style: none;
+    padding-left: 23px;
+    padding-top: 45px;
+    position: absolute;
+    z-index: 100;
+}

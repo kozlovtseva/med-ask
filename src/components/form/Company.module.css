@@ -1,0 +1,15 @@
+.Item{
+    align-items: center;
+    display: flex;
+    margin-bottom: 15px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.Item:hover{
+    background-color: #66D1C6;
+    cursor: default;
+}
+.Img{
+    margin-left: 12px;
+    margin-right: 11px;
+}

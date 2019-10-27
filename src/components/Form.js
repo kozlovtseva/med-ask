@@ -10,7 +10,7 @@ import {getCompanies}  from '../store/actions/CompaniesActions';
 import {getServices}  from '../store/actions/CompaniesActions';
 import {connect} from 'react-redux';
 
-// import styles from './Form.module.css';
+import styles from './Form.module.css';
 
 class Form extends Component {
     state = {
@@ -62,7 +62,8 @@ class Form extends Component {
     }
     setCompany = (data) => {
         this.setState({
-			IC: data
+            IC: data,
+            companiesDropDown: !this.state.companiesDropDown
         });
         this.toggleCompanies();
     }
@@ -72,11 +73,13 @@ class Form extends Component {
         if(e.target.value !== '') {
             this.props.services.forEach(function(item) {
                 if(item.toLowerCase().indexOf(e.target.value) !== -1) {
-                    if(result.length < 10) {
+                    if(result.length < 3) {
                         result.push(item);
                     }
                 }
             });
+        }else{
+            result = undefined;
         }
         this.setState({searchList: result});
     }
@@ -85,41 +88,48 @@ class Form extends Component {
         let result = this.state.chosenServices;
         result.push(service);
         this.setState({
-			chosenServices: result
+            chosenServices: result,
+            searchList: undefined
         });
     }
 
-    clickCheck(event) {
-        event.preventDefault();
+    clickCheck = () => {
         // this.props.dispatch(checkData(this.state.type, this.state.policyNumber, this.state.IC));
     }
 
     render () {
         return (
-            <div>
-                <h3>Проверка услуг медицинского страхования</h3>
+            <div className={styles.Container}>
+                <h3 className={styles.Title}>Проверка услуг медицинского страхования</h3>
                 <form action="">
 
                     <InsType type = {this.state.type}/>
 
-                    <div>
-                        <input name="policyNumber"
-                                placeholder="Введите номер полиса"
-                                value={this.state.policyNumber}
-                                onChange={this.handleUserInput} 
-                        />
+                    <div className={styles.Row}>
                         <div>
-                            {(this.state.IP !== undefined) ? this.state.IP.expireDate : ''}
+                            <input className={styles.PolicyInput}
+                                    name="policyNumber"
+                                    placeholder="Введите номер полиса"
+                                    value={this.state.policyNumber}
+                                    onChange={this.handleUserInput} required
+                            />
+                            <div className={styles.Date}>
+                                {(this.state.IP !== undefined) ? 'Дата окончания ' + this.state.IP.expireDate : ''}
+                            </div>
                         </div>
-                    </div>
-                    
-                    <InsCompany company = {this.state.IC}
+                        <InsCompany company = {this.state.IC}
                                 companiesList = {this.props.companies}
                                 companiesDropDown = {this.state.companiesDropDown}
                                 toggleCompanies = {this.toggleCompanies} 
                                 setCompany = {this.setCompany}/>
-                    <div>
+                    </div>
+                    
+                    <div className={styles.Subtitle}>Выберите медицинские услуги</div>
+                    
+                    <div className={styles.Search}>
+                    <div className={(this.state.searchList) ? styles.SearchingActive : ''}>
                         <input type="text" 
+                                className={(this.state.searchList) ? styles.SearchingInput : styles.Input}
                                 onChange={this.handleSearch}
                                 placeholder='Введите запрашиваемую услугу для пациента'/>
                         {(this.state.searchList) ? 
@@ -128,8 +138,11 @@ class Form extends Component {
                     </div>
 
                     <Services list={this.state.chosenServices}/>
-
-                    <button onClick={(e)=>{this.clickCheck(e);}}>Проверить</button>
+                    </div>
+                    <div className={styles.ButtonBlock}>
+                        <button className={styles.Button} onClick={this.clickCheck}>Проверить</button>
+                    </div>
+                    
 
                 </form>
 

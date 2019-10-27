@@ -7,7 +7,7 @@ const DataAPI = {
         expireDate: '14.08.2020',
         IC: {
             name: 'СК МЕД-АСКЕР',
-            img: '../../images/MedAsker.png',
+            img: 'MedAsker_logo',
             tel: '8 (495) 123-45-67'
         }
       },

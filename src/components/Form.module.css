@@ -1,0 +1,85 @@
+.Container{  
+    align-items: center;
+    background-color: #fff;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 57px 72px 42px 72px;
+}
+.Row{
+    display: flex;
+    justify-content: center;
+}
+.Title{
+    font-size: 30px;
+    font-weight: 700;
+}
+.Subtitle{
+    font-size: 18px;
+    margin: 30px 0 20px 23px;
+}
+.PolicyInput{
+    border: 1px solid #868686;
+    border-radius: 50px;
+    font-size: 14px;
+    height: 35px;
+    line-height: 19px;
+    margin-right: 24px;
+    outline: none;
+    padding: 6px 65px 8px 23px;
+    width: 436px;
+}
+.PolicyInput:valid{
+    background-color: #fff;
+}
+.Input{
+    border: 1px solid #868686;
+    border-radius: 50px;
+    font-size: 14px;
+    height: 35px;
+    line-height: 19px;
+    margin-right: 24px;
+    outline: none;
+    padding: 6px 65px 8px 23px;
+    position: absolute;
+    width: 823px;
+    z-index: 200;
+}
+.SearchingInput{
+    border-color: transparent;
+    border-radius: 50px;
+    font-size: 14px;
+    outline: none;
+    padding: 6px 65px 8px 23px;
+    position: absolute;
+    width: 800px;
+}
+.SearchingActive{
+    background-color: #fff;
+    border: 1px solid #66D1C6;
+    border-radius: 15px;
+    position: absolute;
+    width: 823px;
+    z-index: 200;
+}
+.Search{
+    height: 230px;
+    position: relative;
+}
+.Date{
+    font-size: 14px;
+    height: 20px;
+    margin-top: 5px;
+    padding-left: 23px;
+}
+.ButtonBlock{
+    display: flex;
+    justify-content: center;
+}
+.Button{
+    background: #ED462F;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 40px;
+}

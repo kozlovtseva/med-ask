@@ -1,7 +1,48 @@
-.Active{
-    display: block;
+.Container{
+    position: relative;
+    width: 436px;
 }
-
+.Input{
+    align-items: center;
+    display: flex;
+    border: 1px solid #868686;
+    border-radius: 50px;
+    color: #868686;
+    font-size: 14px;
+    height: 35px;
+    line-height: 19px;
+    padding: 6px 65px 8px 23px;
+    position: absolute;
+    width: 436px;
+}
+.Text{
+    color: #000;
+}
+.List{
+    background-color: #fff;
+    border: 1px solid #66D1C6;
+    border-radius: 15px;
+    padding-top: 47px;
+    position: absolute;
+    width: 363px;
+    z-index: 300;
+}
+.Item{
+    align-items: center;
+    color: #000;
+    display: flex;
+}
+.Img{
+    margin-right: 11px;
+    /* margin-left: -8px; */
+}
+.Tel{
+    color: #000;
+    font-size: 14px;
+    margin-top: 39px;
+    padding-left: 23px;
+}
 .Passive{
-    display: none;
+   opacity: 0;
+   position: absolute;
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 
-import ServicesItem from './ServicesItem'
+import styles from './Services.module.css'
+import ServicesItem from './ServicesItem';
+
 
 const Services = (props) => {
     let items = props.list.map((value, index) => {
@@ -9,7 +11,7 @@ const Services = (props) => {
     });
     return (
         <>
-            <ul>
+            <ul className={styles.List}>
                 {items}
             </ul>
         </>

@@ -9,10 +9,11 @@ import Layout from './Layout';
 class App extends Component {
   render() {
     return (
-      // <div className="App"/>
-      <Provider store={store}>
-          <Layout />
-      </Provider>
+      <div className="App">
+        <Provider store={store}>
+            <Layout />
+        </Provider>
+      </div>
     );
   }
 }

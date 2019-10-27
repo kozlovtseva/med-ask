@@ -1,6 +1,7 @@
 import React from 'react';
 
-import SearchItem from './SearchItem'
+import SearchItem from './SearchItem';
+import styles from './SearchResults.module.css'
 
 const SearchResults = (props) => {
     let list = props.list.map((value, index) => {
@@ -10,7 +11,7 @@ const SearchResults = (props) => {
     });
     return (
         <div>
-            <ul>
+            <ul className={styles.List}>
                 { list }
             </ul>
         </div>
