@@ -7,7 +7,8 @@ import ServicesItem from './ServicesItem';
 const Services = (props) => {
     let items = props.list.map((value, index) => {
         return <ServicesItem key={index}
-                        name={value}/>
+                        name={value}
+                        delService={props.delService}/>
     });
     return (
         <>

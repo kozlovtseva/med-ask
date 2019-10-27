@@ -98,6 +98,15 @@ class Form extends Component {
         });
     }
 
+    delService = (service) => {
+        let array = this.state.chosenServices;
+        let index = array.indexOf(service);
+        if (index !== -1) array.splice(index, 1);
+        this.setState({
+            chosenServices: array
+        });
+    }
+
     handleKeyPress = (event) => {
         if(event.key === 'Enter'){
             this.addService(this.state.service);
@@ -149,7 +158,7 @@ class Form extends Component {
                                 : null  }
                     </div>
 
-                    <Services list={this.state.chosenServices}/>
+                    <Services list={this.state.chosenServices} delService={this.delService}/>
                     </div>
                     <div className={styles.ButtonBlock}>
                         <button className={styles.Button} onClick={this.clickCheck}>Проверить</button>

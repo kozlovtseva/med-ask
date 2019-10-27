@@ -4,8 +4,14 @@ import styles from './ServicesItem.module.css'
 
 const ServicesItem = (props) => {
     return (
-        <li className={styles.Item}>
-            {props.name}
+        <li className={styles.Item} >
+            <div>
+                {props.name}
+            </div>
+            <img className={styles.Icon} 
+                src={require(`../../images/cross.png`)} 
+                onClick={() => props.delService(props.name)}
+                alt='icon'/>
         </li>
     )
 };
